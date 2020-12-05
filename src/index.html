@@ -7,16 +7,46 @@
 
     <script type="module" src="/build/stencil-sandbox.esm.js"></script>
     <script nomodule src="/build/stencil-sandbox.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+        }
+
+        .side-nav__list {
+            list-style: none;
+        }
+
+        .side-nav__list-item {
+            margin: 1rem 0;
+        }
+    </style>
   </head>
   <body>
     <fancy-side-drawer
         class="fancy-side-drawer"
         title="Fancy Side Drawer Title"
-    ></fancy-side-drawer>
+    >
+        <nav class="side-nav">
+            <ul class="side-nav__list">
+                <li class="side-nav__list-item">
+                    <a href="#">Link</a>
+                </li>
+                <li class="side-nav__list-item">
+                    <a href="#">Link</a>
+                </li>
+                <li class="side-nav__list-item">
+                    <a href="#">Link</a>
+                </li>
+            </ul>
+        </nav>
+    </fancy-side-drawer>
     <script>
         const sideDrawer = document.querySelector('.fancy-side-drawer')
         setTimeout(() => {
             sideDrawer.title = 'It changed!'
+            sideDrawer.setAttribute('open', '')
         }, 5000)
     </script>
   </body>
