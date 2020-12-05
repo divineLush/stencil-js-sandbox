@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Stencil Component Starter</title>
+
+    <script type="module" src="/build/stencil-sandbox.esm.js"></script>
+    <script nomodule src="/build/stencil-sandbox.js"></script>
+  </head>
+  <body>
+    <fancy-side-drawer
+        class="fancy-side-drawer"
+        title="Fancy Side Drawer Title"
+    ></fancy-side-drawer>
+    <script>
+        const sideDrawer = document.querySelector('.fancy-side-drawer')
+        setTimeout(() => {
+            sideDrawer.title = 'It changed!'
+        }, 5000)
+    </script>
+  </body>
+</html>
