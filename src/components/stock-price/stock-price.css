@@ -1,0 +1,31 @@
+:host {
+    display: block;
+    border: 4px solid #7bb100;
+    margin: 2rem;
+    padding: 1rem;
+    width: 20rem;
+    max-width: 100%;
+}
+
+.stock-price__input {
+    font: inherit;
+    color: #7bb100;
+    padding: 0.1rem 0.25rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stock-price__btn {
+    font: inherit;
+    padding: 0.25rem 0.5rem;
+    border: 2px solid #7bb100;
+    background: #7bb100;
+    color: white;
+    cursor: pointer;
+}
+
+.stock-price__btn:hover,
+.stock-price__btn:active {
+    background: #31400f;
+    border-color: #31400f;
+}

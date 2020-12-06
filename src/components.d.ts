@@ -11,6 +11,8 @@ export namespace Components {
         "openSideDrawer": () => Promise<void>;
         "title": string;
     }
+    interface FancyStockPrice {
+    }
     interface FancyTooltip {
         "text": string;
     }
@@ -22,6 +24,12 @@ declare global {
         prototype: HTMLFancySideDrawerElement;
         new (): HTMLFancySideDrawerElement;
     };
+    interface HTMLFancyStockPriceElement extends Components.FancyStockPrice, HTMLStencilElement {
+    }
+    var HTMLFancyStockPriceElement: {
+        prototype: HTMLFancyStockPriceElement;
+        new (): HTMLFancyStockPriceElement;
+    };
     interface HTMLFancyTooltipElement extends Components.FancyTooltip, HTMLStencilElement {
     }
     var HTMLFancyTooltipElement: {
@@ -30,6 +38,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "fancy-side-drawer": HTMLFancySideDrawerElement;
+        "fancy-stock-price": HTMLFancyStockPriceElement;
         "fancy-tooltip": HTMLFancyTooltipElement;
     }
 }
@@ -38,11 +47,14 @@ declare namespace LocalJSX {
         "open"?: boolean;
         "title"?: string;
     }
+    interface FancyStockPrice {
+    }
     interface FancyTooltip {
         "text"?: string;
     }
     interface IntrinsicElements {
         "fancy-side-drawer": FancySideDrawer;
+        "fancy-stock-price": FancyStockPrice;
         "fancy-tooltip": FancyTooltip;
     }
 }
@@ -51,6 +63,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "fancy-side-drawer": LocalJSX.FancySideDrawer & JSXBase.HTMLAttributes<HTMLFancySideDrawerElement>;
+            "fancy-stock-price": LocalJSX.FancyStockPrice & JSXBase.HTMLAttributes<HTMLFancyStockPriceElement>;
             "fancy-tooltip": LocalJSX.FancyTooltip & JSXBase.HTMLAttributes<HTMLFancyTooltipElement>;
         }
     }
