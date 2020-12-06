@@ -35,6 +35,15 @@ export class SideDrawer {
           <h2>Contact Information</h2>
         </article>
       )
+    const navBtnClasses = [
+        'fancy-side-drawer__tab-btn',
+        isNav ? 'fancy-side-drawer__tab-btn--active' : ''
+    ].join(' ')
+    const contactBtnClasses = [
+        'fancy-side-drawer__tab-btn',
+        !isNav ? 'fancy-side-drawer__tab-btn--active' : ''
+    ].join(' ')
+
     return (
       <aside class="fancy-side-drawer">
         <header class="fancy-side-drawer__header">
@@ -49,13 +58,13 @@ export class SideDrawer {
         <main>
           <section class="fancy-side-drawer__tabs">
             <button
-              class="fancy-side-drawer__tab-btn"
+              class={ navBtnClasses }
               onClick={ this.onContentChange.bind(this, Tabs.Navigation) }
             >
               Navigation
             </button>
             <button
-              class="fancy-side-drawer__tab-btn"
+              class={ contactBtnClasses }
               onClick={ this.onContentChange.bind(this, Tabs.Contact) }
             >
               Contact
