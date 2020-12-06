@@ -50,7 +50,7 @@ export class SideDrawer {
     ].join(' ')
 
     return [
-      <div class="backdrop"></div>,
+      <div class="backdrop" onClick={ this.onClose.bind(this) }></div>,
       (<aside class="fancy-side-drawer">
         <header class="fancy-side-drawer__header">
           <h1 class="fancy-side-drawer__header-title">{ this.title }</h1>
