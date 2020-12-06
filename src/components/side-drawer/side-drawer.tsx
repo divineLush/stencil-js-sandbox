@@ -1,4 +1,4 @@
-import { Component, Prop, State, h } from '@stencil/core';
+import { Component, Prop, State, Method, h } from '@stencil/core';
 
 enum Tabs {
     'Navigation',
@@ -26,6 +26,11 @@ export class SideDrawer {
   onContentChange (tab: Tabs) {
       console.log(tab)
       this.currentTab = tab
+  }
+
+  @Method()
+  openSideDrawer () {
+      this.open = true
   }
 
   render() {

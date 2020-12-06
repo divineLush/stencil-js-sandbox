@@ -49,7 +49,7 @@
 
         sideDrawerBtn.addEventListener('click', () => {
             if (!sideDrawer.open)
-                sideDrawer.setAttribute('open', '')
+                sideDrawer.openSideDrawer()
         })
         setTimeout(() => {
             sideDrawer.title = 'It changed!'

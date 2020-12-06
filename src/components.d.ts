@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface FancySideDrawer {
         "open": boolean;
+        "openSideDrawer": () => Promise<void>;
         "title": string;
     }
 }
