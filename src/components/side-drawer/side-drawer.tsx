@@ -49,8 +49,9 @@ export class SideDrawer {
         !isNav ? 'fancy-side-drawer__tab-btn--active' : ''
     ].join(' ')
 
-    return (
-      <aside class="fancy-side-drawer">
+    return [
+      <div class="backdrop"></div>,
+      (<aside class="fancy-side-drawer">
         <header class="fancy-side-drawer__header">
           <h1 class="fancy-side-drawer__header-title">{ this.title }</h1>
           <button
@@ -80,6 +81,6 @@ export class SideDrawer {
           </section>
         </main>
       </aside>
-    )
+    )]
   }
 }
