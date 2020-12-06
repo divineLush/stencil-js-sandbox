@@ -1,4 +1,9 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, State, h } from '@stencil/core';
+
+enum Tabs {
+    'Navigation',
+    'Contact',
+}
 
 @Component({
   tag: 'fancy-side-drawer',
@@ -6,19 +11,59 @@ import { Component, Prop, h } from '@stencil/core';
   shadow: true,
 })
 export class SideDrawer {
-  // by default prop chenges are not reflected to the attribute
-  @Prop({ reflect: true }) title: string;
+  // by default prop changes are not reflected to the attribute
+  @Prop({ reflect: true }) title: string
+
+  // by default props are immutable
+  @Prop({ reflect: true, mutable: true }) open: boolean
+
+  @State() currentTab: Tabs = Tabs.Navigation
+
+  onClose () {
+      this.open = false
+  }
+
+  onContentChange (tab: Tabs) {
+      console.log(tab)
+      this.currentTab = tab
+  }
 
   render() {
+    const isNav = this.currentTab === Tabs.Navigation
+    const mainContent = isNav ? <slot /> : (
+        <article>
+          <h2>Contact Information</h2>
+        </article>
+      )
     return (
       <aside class="fancy-side-drawer">
         <header class="fancy-side-drawer__header">
-            <h1 class="fancy-side-drawer__header-title">
-                { this.title }
-            </h1>
+          <h1 class="fancy-side-drawer__header-title">{ this.title }</h1>
+          <button
+            class="fancy-side-drawer__close-btn"
+            onClick={ this.onClose.bind(this) }
+          >
+            Close
+          </button>
         </header>
         <main>
-          <slot />
+          <section class="fancy-side-drawer__tabs">
+            <button
+              class="fancy-side-drawer__tab-btn"
+              onClick={ this.onContentChange.bind(this, Tabs.Navigation) }
+            >
+              Navigation
+            </button>
+            <button
+              class="fancy-side-drawer__tab-btn"
+              onClick={ this.onContentChange.bind(this, Tabs.Contact) }
+            >
+              Contact
+            </button>
+          </section>
+          <section class="fancy-side-drawer__content">
+              { mainContent }
+          </section>
         </main>
       </aside>
     )

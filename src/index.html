@@ -24,6 +24,7 @@
     </style>
   </head>
   <body>
+    <button class="fancy-side-drawer-btn">Open Side Drawer</button>
     <fancy-side-drawer
         class="fancy-side-drawer"
         title="Fancy Side Drawer Title"
@@ -43,10 +44,15 @@
         </nav>
     </fancy-side-drawer>
     <script>
+        const sideDrawerBtn = document.querySelector('.fancy-side-drawer-btn')
         const sideDrawer = document.querySelector('.fancy-side-drawer')
+
+        sideDrawerBtn.addEventListener('click', () => {
+            if (!sideDrawer.open)
+                sideDrawer.setAttribute('open', '')
+        })
         setTimeout(() => {
             sideDrawer.title = 'It changed!'
-            sideDrawer.setAttribute('open', '')
         }, 5000)
     </script>
   </body>

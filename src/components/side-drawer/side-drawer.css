@@ -24,3 +24,28 @@
     color: white;
     margin: 0;
 }
+
+.fancy-side-drawer__tabs {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.fancy-side-drawer__tab-btn {
+    width: 30%;
+    background: white;
+    color: black;
+    text-align: center;
+    border: 1px solid black;
+    font: inherit;
+    padding: 0.2rem 0;
+    cursor: pointer;
+}
+
+.fancy-side-drawer__tab-btn--active,
+.fancy-side-drawer__tab-btn:hover,
+.fancy-side-drawer__tab-btn:focus,
+.fancy-side-drawer__tab-btn:active {
+    background: green;
+    color: white;
+}
