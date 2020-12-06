@@ -11,6 +11,9 @@ export namespace Components {
         "openSideDrawer": () => Promise<void>;
         "title": string;
     }
+    interface FancyTooltip {
+        "text": string;
+    }
 }
 declare global {
     interface HTMLFancySideDrawerElement extends Components.FancySideDrawer, HTMLStencilElement {
@@ -19,8 +22,15 @@ declare global {
         prototype: HTMLFancySideDrawerElement;
         new (): HTMLFancySideDrawerElement;
     };
+    interface HTMLFancyTooltipElement extends Components.FancyTooltip, HTMLStencilElement {
+    }
+    var HTMLFancyTooltipElement: {
+        prototype: HTMLFancyTooltipElement;
+        new (): HTMLFancyTooltipElement;
+    };
     interface HTMLElementTagNameMap {
         "fancy-side-drawer": HTMLFancySideDrawerElement;
+        "fancy-tooltip": HTMLFancyTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -28,8 +38,12 @@ declare namespace LocalJSX {
         "open"?: boolean;
         "title"?: string;
     }
+    interface FancyTooltip {
+        "text"?: string;
+    }
     interface IntrinsicElements {
         "fancy-side-drawer": FancySideDrawer;
+        "fancy-tooltip": FancyTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -37,6 +51,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "fancy-side-drawer": LocalJSX.FancySideDrawer & JSXBase.HTMLAttributes<HTMLFancySideDrawerElement>;
+            "fancy-tooltip": LocalJSX.FancyTooltip & JSXBase.HTMLAttributes<HTMLFancyTooltipElement>;
         }
     }
 }
