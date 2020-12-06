@@ -1,4 +1,4 @@
-import { Component, State, Element, h } from '@stencil/core'
+import { Component, State, h } from '@stencil/core'
 
 @Component({
     tag: 'fancy-stock-price',
@@ -6,15 +6,17 @@ import { Component, State, Element, h } from '@stencil/core'
     shadow: true,
 })
 export class StockPrice {
+    stockInput: HTMLInputElement
+
     // reference to web component
-    @Element() el: HTMLElement
+    // @Element() el: HTMLElement
 
     @State() price: number = 0
 
     onSubmit (event: Event) {
         event.preventDefault();
-        const input = this.el.shadowRoot.querySelector('.stock-price__input')
-        const stockSymbol = (input as HTMLInputElement).value
+        // const input = this.el.shadowRoot.querySelector('.stock-price__input')
+        const stockSymbol = this.stockInput.value
         const key = 'P7SR0H6KNOLFERI9'
         const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ stockSymbol }&apikey=${ key }`
         fetch(url)
@@ -31,7 +33,10 @@ export class StockPrice {
                 class="stock-price"
                 onSubmit={ this.onSubmit.bind(this) }
             >
-                <input class="stock-price__input" />
+                <input
+                    class="stock-price__input"
+                    ref={ el => this.stockInput = el }
+                />
                 <button
                     class="stock-price__btn"
                     type="submit"
