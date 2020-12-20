@@ -17,6 +17,8 @@ export class StockPrice {
 
     @State() userInput: string
 
+    @State() error: string
+
 
     onUserInput (event: Event) {
         this.userInput = (event.target as HTMLInputElement).value
@@ -32,12 +34,24 @@ export class StockPrice {
         fetch(url)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
-                this.price = +res['Global Quote']['05. price']
+                const price = res['Global Quote']['05. price']
+                console.log(res, price)
+                if (!price)
+                    throw new Error('Invalid Symbol')
+
+                this.error = null
+                this.price = +price
+            })
+            .catch(err => {
+                this.error = err.message
             })
     }
 
     render () {
+        const priceContent = this.error
+            ? <p>{ this.error }</p>
+            : <p>Price: ${ this.price }</p>
+
         return [
             <form
                 class="stock-price"
@@ -58,7 +72,7 @@ export class StockPrice {
                 </button>
             </form>,
             <div class="stock-price__data">
-                <p>Price: ${ this.price }</p>
+                { priceContent }
             </div>
         ]
     }

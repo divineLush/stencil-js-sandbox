@@ -35,3 +35,7 @@
     border-color: #525252;
     cursor: not-allowed;
 }
+
+.stock-price__data > p {
+    margin-bottom: 0;
+}
