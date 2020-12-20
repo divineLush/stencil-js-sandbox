@@ -13,6 +13,16 @@ export class StockPrice {
 
     @State() price: number = 0
 
+    @State() isInputValid: boolean = false
+
+    @State() userInput: string
+
+
+    onUserInput (event: Event) {
+        this.userInput = (event.target as HTMLInputElement).value
+        this.isInputValid = this.userInput.trim() !== ''
+    }
+
     onSubmit (event: Event) {
         event.preventDefault();
         // const input = this.el.shadowRoot.querySelector('.stock-price__input')
@@ -36,10 +46,13 @@ export class StockPrice {
                 <input
                     class="stock-price__input"
                     ref={ el => this.stockInput = el }
+                    value={ this.userInput }
+                    onInput={ this.onUserInput.bind(this) }
                 />
                 <button
                     class="stock-price__btn"
                     type="submit"
+                    disabled={ !this.isInputValid }
                 >
                     Fetch
                 </button>

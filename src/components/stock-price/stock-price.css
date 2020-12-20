@@ -29,3 +29,9 @@
     background: #31400f;
     border-color: #31400f;
 }
+
+.stock-price__btn:disabled {
+    background: #8d8d8d;
+    border-color: #525252;
+    cursor: not-allowed;
+}
