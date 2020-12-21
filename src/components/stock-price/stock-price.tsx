@@ -1,4 +1,4 @@
-import { Component, State, h } from '@stencil/core'
+import { Component, State, Prop, h } from '@stencil/core'
 
 @Component({
     tag: 'fancy-stock-price',
@@ -19,6 +19,26 @@ export class StockPrice {
 
     @State() error: string
 
+    @Prop() stockSymbol: string
+
+    fetchStockPrice (stockSymbol: string) {
+        const key = 'P7SR0H6KNOLFERI9'
+        const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ stockSymbol }&apikey=${ key }`
+        fetch(url)
+        .then(res => res.json())
+        .then(res => {
+            const price = res['Global Quote']['05. price']
+            console.log(res, price)
+            if (!price)
+            throw new Error('Invalid Symbol')
+
+            this.error = null
+            this.price = +price
+        })
+        .catch(err => {
+            this.error = err.message
+        })
+    }
 
     onUserInput (event: Event) {
         this.userInput = (event.target as HTMLInputElement).value
@@ -29,22 +49,12 @@ export class StockPrice {
         event.preventDefault();
         // const input = this.el.shadowRoot.querySelector('.stock-price__input')
         const stockSymbol = this.stockInput.value
-        const key = 'P7SR0H6KNOLFERI9'
-        const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ stockSymbol }&apikey=${ key }`
-        fetch(url)
-            .then(res => res.json())
-            .then(res => {
-                const price = res['Global Quote']['05. price']
-                console.log(res, price)
-                if (!price)
-                    throw new Error('Invalid Symbol')
+        this.fetchStockPrice(stockSymbol)
+    }
 
-                this.error = null
-                this.price = +price
-            })
-            .catch(err => {
-                this.error = err.message
-            })
+    componentDidLoad () {
+        if (this.stockSymbol)
+            this.fetchStockPrice(this.stockSymbol)
     }
 
     render () {
