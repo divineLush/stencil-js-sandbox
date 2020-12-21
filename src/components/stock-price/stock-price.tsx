@@ -7,6 +7,7 @@ import { Component, State, Prop, h } from '@stencil/core'
 })
 export class StockPrice {
     stockInput: HTMLInputElement
+    initialStockSymbol: string
 
     // reference to web component
     // @Element() el: HTMLElement
@@ -53,9 +54,41 @@ export class StockPrice {
     }
 
     componentDidLoad () {
-        if (this.stockSymbol)
+        // at this point of time render function is already executed
+        // mutating a stateful value in componentDidLoad is inefficient
+        // as render function will have to run again
+        if (this.stockSymbol) {
+            this.initialStockSymbol = this.stockSymbol
+            this.userInput = this.stockSymbol
+            this.isInputValid = true
             this.fetchStockPrice(this.stockSymbol)
+        }
     }
+
+    // stencil executes this method right before this component is about to load
+    componentWillLoad () {
+        // at this point of time stencil is already able to read attributes
+        // render function is about to be executed
+        console.log('componentWillLoad', this.stockSymbol)
+    }
+
+    componentWillUpdate () {
+        // runs before rerendering
+        console.log('componentWillUpdate')
+    }
+
+    componentDidUpdate () {
+        // runs when @Prop or @State property updates
+        console.log('componentWillUpdate')
+        if (this.stockSymbol !== this.initialStockSymbol) {
+            this.initialStockSymbol = this.stockSymbol
+            this.fetchStockPrice(this.stockSymbol)
+        }
+    }
+
+    // componentDidUnload () {
+    //     console.log('componentDidUnload')
+    // }
 
     render () {
         const priceContent = this.error
