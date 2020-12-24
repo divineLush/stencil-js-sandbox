@@ -1,4 +1,4 @@
-import { Component, State, Prop, h } from '@stencil/core'
+import { Component, State, Prop, Watch, h } from '@stencil/core'
 
 @Component({
     tag: 'fancy-stock-price',
@@ -7,7 +7,7 @@ import { Component, State, Prop, h } from '@stencil/core'
 })
 export class StockPrice {
     stockInput: HTMLInputElement
-    initialStockSymbol: string
+    // initialStockSymbol: string
 
     // reference to web component
     // @Element() el: HTMLElement
@@ -20,7 +20,17 @@ export class StockPrice {
 
     @State() error: string
 
-    @Prop() stockSymbol: string
+    @Prop({
+        mutable: true,
+        reflect: true
+    }) stockSymbol: string
+
+    // watching for stockSymbol prop changes
+    @Watch('stockSymbol')
+    stockSymbolChanged (newValue, oldValue) {
+        if (newValue !== oldValue)
+            this.fetchStockPrice(newValue)
+    }
 
     fetchStockPrice (stockSymbol: string) {
         const key = 'P7SR0H6KNOLFERI9'
@@ -49,8 +59,9 @@ export class StockPrice {
     onSubmit (event: Event) {
         event.preventDefault();
         // const input = this.el.shadowRoot.querySelector('.stock-price__input')
-        const stockSymbol = this.stockInput.value
-        this.fetchStockPrice(stockSymbol)
+        this.stockSymbol = this.stockInput.value
+        // no need to call fetchStockPrice manually because of watcher
+        // this.fetchStockPrice(stockSymbol)
     }
 
     componentDidLoad () {
@@ -58,7 +69,8 @@ export class StockPrice {
         // mutating a stateful value in componentDidLoad is inefficient
         // as render function will have to run again
         if (this.stockSymbol) {
-            this.initialStockSymbol = this.stockSymbol
+            // garbage for watching stockPrice prop changes
+            // this.initialStockSymbol = this.stockSymbol
             this.userInput = this.stockSymbol
             this.isInputValid = true
             this.fetchStockPrice(this.stockSymbol)
@@ -80,10 +92,11 @@ export class StockPrice {
     componentDidUpdate () {
         // runs when @Prop or @State property updates
         console.log('componentWillUpdate')
-        if (this.stockSymbol !== this.initialStockSymbol) {
-            this.initialStockSymbol = this.stockSymbol
-            this.fetchStockPrice(this.stockSymbol)
-        }
+        // garbage for watching stockPrice prop changes
+        // if (this.stockSymbol !== this.initialStockSymbol) {
+        //     this.initialStockSymbol = this.stockSymbol
+        //     this.fetchStockPrice(this.stockSymbol)
+        // }
     }
 
     // componentDidUnload () {
