@@ -85,6 +85,11 @@ export class StockPrice {
         }
     }
 
+    hostData () {
+        // meta data about host element
+        return { class: this.error ? '_error' : '' }
+    }
+
     // stencil executes this method right before this component is about to load
     componentWillLoad () {
         // at this point of time stencil is already able to read attributes
