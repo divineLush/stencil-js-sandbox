@@ -4,6 +4,9 @@
     width: 20rem;
     max-width: 100%;
     font-size: 1.6rem;
+    --color-primary: #7bb100;
+    --color-secondary: #ffffff;
+    --color-disabled: #525252;
 }
 
 .stock-price {
@@ -13,40 +16,40 @@
 .stock-price__input {
     display: block;
     font: inherit;
-    color: #7bb100;
+    color: var(--color-primary, #7bb100);
     padding: 0.1rem 0.5rem;
-    border: 3px solid #7bb100;
+    border: 3px solid var(--color-primary, #7bb100);
 }
 
 .stock-price__input:focus {
-    background: #7bb100;
-    color: white;
+    background: var(--color-primary, #7bb100);
+    color: var(--color-secondary, #ffffff);
     outline: none;
 }
 
 .stock-price__btn {
     font: inherit;
     padding: 0.25rem 0.5rem;
-    border: 2px solid #7bb100;
-    background: #7bb100;
-    color: white;
+    border: 3px solid var(--color-primary, #7bb100);
+    background: var(--color-primary, #7bb100);
+    color: var(--color-secondary, #ffffff);
     cursor: pointer;
     margin-left: 1.2rem;
     transition: all .5s ease-out;
-}
-
-.stock-price__btn:hover,
-.stock-price__btn:active,
-.stock-price__btn:focus {
-    background: white;
-    color: #7bb100;
-    transform: scale(1.2);
     outline: none;
 }
 
+.stock-price__btn:hover:not(:disabled),
+.stock-price__btn:active:not(:disabled),
+.stock-price__btn:focus:not(:disabled) {
+    background: var(--color-secondary, #ffffff);
+    color: var(--color-primary, #7bb100);
+    transform: scale(1.2);
+}
+
 .stock-price__btn:disabled {
-    background: #8d8d8d;
-    border-color: #525252;
+    background: var(--color-disabled, #525252);
+    border-color: var(--color-disabled, #525252);
     cursor: not-allowed;
 }
 
