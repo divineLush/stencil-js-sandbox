@@ -45,7 +45,7 @@
     </fancy-side-drawer>
     <fancy-tooltip text="hey there!"></fancy-tooltip>
     <fancy-stock-price stock-symbol="SBUX"></fancy-stock-price>
-    <fancy-stock-finder></fancy-stock-finder>
+    <fancy-stock-finder class="fancy-stock-finder"></fancy-stock-finder>
     <script>
         const sideDrawerBtn = document.querySelector('.fancy-side-drawer-btn')
         const sideDrawer = document.querySelector('.fancy-side-drawer')
@@ -57,6 +57,10 @@
         setTimeout(() => {
             sideDrawer.title = 'It changed!'
         }, 5000)
+
+
+        const stockFinder = document.querySelector('.fancy-stock-finder')
+        stockFinder.addEventListener('fancySymbolSelected', event => console.log(event))
     </script>
   </body>
 </html>

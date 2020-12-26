@@ -1,5 +1,5 @@
 
-import { Component, State, h } from '@stencil/core'
+import { Component, State, Event, EventEmitter, h } from '@stencil/core'
 
 type SearchResult = { symbol: string, name: string }
 
@@ -12,6 +12,11 @@ export class StockFinder {
     stockNameInput: HTMLInputElement
 
     @State() searchResults: SearchResult[] = []
+
+    @Event({
+        bubbles: true,
+        composed: true,
+    }) fancySymbolSelected: EventEmitter<string>
 
     onSubmitStocks (event: Event) {
         event.preventDefault()
@@ -26,6 +31,10 @@ export class StockFinder {
                     .map(match => ({ symbol: match['1. symbol'], name: match['2. name'] }))
             })
             .catch(err => console.log(err))
+    }
+
+    onSelectSymbol (symbol: string) {
+        this.fancySymbolSelected.emit(symbol)
     }
 
     render () {
@@ -46,7 +55,7 @@ export class StockFinder {
                 </button>
             </form>,
             <ul class="stock-finder__results-list">
-                { this.searchResults.map(result => <li class="stock-finder__result">{ result.name }</li>) }
+                { this.searchResults.map(result => <li class="stock-finder__result" onClick={ this.onSelectSymbol.bind(this, result.symbol) }>{ result.name }</li>) }
             </ul>
         ]
     }
