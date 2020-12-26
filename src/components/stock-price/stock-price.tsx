@@ -1,4 +1,4 @@
-import { Component, State, Prop, Watch, h } from '@stencil/core'
+import { Component, State, Prop, Watch, Listen, h } from '@stencil/core'
 
 @Component({
     tag: 'fancy-stock-price',
@@ -32,6 +32,14 @@ export class StockPrice {
             this.fetchStockPrice(newValue)
     }
 
+    @Listen('fancySymbolSelected', { target: 'body' })
+    onStockSymbolSelected (event: CustomEvent) {
+        if (event.detail && event.detail !== this.stockSymbol) {
+            this.stockSymbol = event.detail
+            this.userInput = event.detail
+        }
+    }
+
     fetchStockPrice (stockSymbol: string) {
         const key = 'P7SR0H6KNOLFERI9'
         const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ stockSymbol }&apikey=${ key }`
@@ -39,7 +47,6 @@ export class StockPrice {
         .then(res => res.json())
         .then(res => {
             const price = res['Global Quote']['05. price']
-            console.log(res, price)
             if (!price)
             throw new Error('Invalid Symbol')
 
