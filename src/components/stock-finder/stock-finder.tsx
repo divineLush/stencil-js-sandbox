@@ -1,5 +1,7 @@
 
-import { Component, h } from '@stencil/core'
+import { Component, State, h } from '@stencil/core'
+
+type SearchResult = { symbol: string, name: string }
 
 @Component({
     tag: 'fancy-stock-finder',
@@ -9,6 +11,8 @@ import { Component, h } from '@stencil/core'
 export class StockFinder {
     stockNameInput: HTMLInputElement
 
+    @State() searchResults: SearchResult[] = []
+
     onSubmitStocks (event: Event) {
         event.preventDefault()
         const key = 'P7SR0H6KNOLFERI9'
@@ -17,7 +21,9 @@ export class StockFinder {
         fetch(url)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                console.log(res, res.bestMatches)
+                this.searchResults = res.bestMatches
+                    .map(match => ({ symbol: match['1. symbol'], name: match['2. name'] }))
             })
             .catch(err => console.log(err))
     }
@@ -39,6 +45,9 @@ export class StockFinder {
                     Find
                 </button>
             </form>,
+            <ul class="stock-finder__results-list">
+                { this.searchResults.map(result => <li class="stock-finder__result">{ result.name }</li>) }
+            </ul>
         ]
     }
 }
