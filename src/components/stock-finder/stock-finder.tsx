@@ -13,6 +13,8 @@ export class StockFinder {
 
     @State() searchResults: SearchResult[] = []
 
+    @State() error: string
+
     @Event({
         bubbles: true,
         composed: true,
@@ -26,11 +28,34 @@ export class StockFinder {
         fetch(url)
             .then(res => res.json())
             .then(res => {
-                console.log(res, res.bestMatches)
-                this.searchResults = res.bestMatches
+                const matches = res.bestMatches
+                if (!matches.length)
+                    throw new Error('Invalid Symbol')
+
+                this.error = null
+
+                this.searchResults = matches
                     .map(match => ({ symbol: match['1. symbol'], name: match['2. name'] }))
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                this.error = err.message
+            })
+    }
+
+    resultItem (result) {
+        return <li
+            class="stock-finder__result"
+            onClick={ this.onSelectSymbol.bind(this, result.symbol) }
+        >
+            { result.name }
+        </li>
+    }
+
+    resultsList () {
+        const results = this.searchResults
+            .map(result => this.resultItem(result))
+
+        return <ul class="stock-finder__results-list">{ results }</ul>
     }
 
     onSelectSymbol (symbol: string) {
@@ -54,9 +79,9 @@ export class StockFinder {
                     Find
                 </button>
             </form>,
-            <ul class="stock-finder__results-list">
-                { this.searchResults.map(result => <li class="stock-finder__result" onClick={ this.onSelectSymbol.bind(this, result.symbol) }>{ result.name }</li>) }
-            </ul>
+            <section class="stock-finder__content">
+                { this.error ? <p class="stock-finder__error-message">{ this.error }</p> : this.resultsList() }
+            </section>
         ]
     }
 }
