@@ -29,7 +29,7 @@
 
 .stock-price__btn {
     font: inherit;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 0.75rem;
     border: 3px solid var(--color-primary, #7bb100);
     background: var(--color-primary, #7bb100);
     color: var(--color-secondary, #ffffff);

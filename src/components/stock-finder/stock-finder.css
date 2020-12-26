@@ -29,7 +29,7 @@
 
 .stock-finder__btn {
     font: inherit;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 0.75rem;
     border: 3px solid var(--color-primary, #c700c7);
     background: var(--color-primary, #c700c7);
     color: var(--color-secondary, #ffffff);

@@ -55,6 +55,7 @@ export class StockPrice {
         })
         .catch(err => {
             this.error = err.message
+            this.price = null
         })
     }
 
