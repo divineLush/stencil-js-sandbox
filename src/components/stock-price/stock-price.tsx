@@ -16,9 +16,12 @@ export class StockPrice {
 
     @State() isInputValid: boolean = false
 
+    @State() isLoading: boolean = false
+
     @State() userInput: string
 
     @State() error: string
+
 
     @Prop({
         mutable: true,
@@ -41,6 +44,7 @@ export class StockPrice {
     }
 
     fetchStockPrice (stockSymbol: string) {
+        this.isLoading = true
         const key = 'P7SR0H6KNOLFERI9'
         const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ stockSymbol }&apikey=${ key }`
         fetch(url)
@@ -52,10 +56,12 @@ export class StockPrice {
 
             this.error = null
             this.price = +price
+            this.isLoading = false
         })
         .catch(err => {
             this.error = err.message
             this.price = null
+            this.isLoading = false
         })
     }
 
@@ -116,11 +122,14 @@ export class StockPrice {
     //     console.log('componentDidUnload')
     // }
 
-    render () {
-        const priceContent = this.error
-            ? <p>{ this.error }</p>
-            : <p>Price: ${ this.price }</p>
+    renderContent () {
+        const price = this.error ? this.error : `Price: ${ this.price }`
+        const result = this.isLoading ? 'Loading...' : price
 
+        return <p>{ result }</p>
+    }
+
+    render () {
         return [
             <form
                 class="stock-price"
@@ -140,9 +149,9 @@ export class StockPrice {
                     Fetch
                 </button>
             </form>,
-            <div class="stock-price__data">
-                { priceContent }
-            </div>
+            <section class="stock-price__data">
+                { this.renderContent() }
+            </section>
         ]
     }
 }

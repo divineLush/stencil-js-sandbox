@@ -13,6 +13,8 @@ export class StockFinder {
 
     @State() searchResults: SearchResult[] = []
 
+    @State() isLoading: boolean = false
+
     @State() error: string
 
     @Event({
@@ -22,6 +24,7 @@ export class StockFinder {
 
     onSubmitStocks (event: Event) {
         event.preventDefault()
+        this.isLoading = true
         const key = 'P7SR0H6KNOLFERI9'
         const stockName = this.stockNameInput.value
         const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${stockName}&apikey=${key}`
@@ -33,12 +36,14 @@ export class StockFinder {
                     throw new Error('Invalid Symbol')
 
                 this.error = null
+                this.isLoading = false
 
                 this.searchResults = matches
                     .map(match => ({ symbol: match['1. symbol'], name: match['2. name'] }))
             })
             .catch(err => {
                 this.error = err.message
+                this.isLoading = false
             })
     }
 
@@ -58,6 +63,18 @@ export class StockFinder {
             .map(result => this.resultItem(result))
 
         return <article class="stock-finder__results-list">{ results }</article>
+    }
+
+    renderContent () {
+        const mainContent = this.error
+            ? <p class="stock-finder__error-message">{ this.error }</p>
+            : this.resultsList()
+
+        const loadingContent = this.isLoading
+            ? <span class="stock-finder__loading">Loading...</span>
+            : mainContent
+
+        return loadingContent
     }
 
     onSelectSymbol (symbol: string) {
@@ -82,7 +99,7 @@ export class StockFinder {
                 </button>
             </form>,
             <section class="stock-finder__content">
-                { this.error ? <p class="stock-finder__error-message">{ this.error }</p> : this.resultsList() }
+                { this.renderContent() }
             </section>
         ]
     }
