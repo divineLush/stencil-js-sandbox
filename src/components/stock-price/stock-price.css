@@ -11,6 +11,7 @@
 
 .stock-price {
     display: flex;
+    margin-bottom: 1.6rem;
 }
 
 .stock-price__input {
@@ -54,5 +55,5 @@
 }
 
 .stock-price__data > p {
-    margin-bottom: 0;
+    margin: 0;
 }

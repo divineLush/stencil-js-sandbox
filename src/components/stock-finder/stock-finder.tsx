@@ -66,15 +66,9 @@ export class StockFinder {
     }
 
     renderContent () {
-        const mainContent = this.error
+        return this.error
             ? <p class="stock-finder__error-message">{ this.error }</p>
             : this.resultsList()
-
-        const loadingContent = this.isLoading
-            ? <span class="stock-finder__loading">Loading...</span>
-            : mainContent
-
-        return loadingContent
     }
 
     onSelectSymbol (symbol: string) {
@@ -99,7 +93,8 @@ export class StockFinder {
                 </button>
             </form>,
             <section class="stock-finder__content">
-                { this.renderContent() }
+                <fancy-loading isVisible={ this.isLoading }></fancy-loading>
+                { this.isLoading ? <div /> : this.renderContent() }
             </section>
         ]
     }

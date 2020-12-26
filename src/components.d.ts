@@ -6,6 +6,9 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface FancyLoading {
+        "isVisible": boolean;
+    }
     interface FancySideDrawer {
         "open": boolean;
         "openSideDrawer": () => Promise<void>;
@@ -21,6 +24,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFancyLoadingElement extends Components.FancyLoading, HTMLStencilElement {
+    }
+    var HTMLFancyLoadingElement: {
+        prototype: HTMLFancyLoadingElement;
+        new (): HTMLFancyLoadingElement;
+    };
     interface HTMLFancySideDrawerElement extends Components.FancySideDrawer, HTMLStencilElement {
     }
     var HTMLFancySideDrawerElement: {
@@ -46,6 +55,7 @@ declare global {
         new (): HTMLFancyTooltipElement;
     };
     interface HTMLElementTagNameMap {
+        "fancy-loading": HTMLFancyLoadingElement;
         "fancy-side-drawer": HTMLFancySideDrawerElement;
         "fancy-stock-finder": HTMLFancyStockFinderElement;
         "fancy-stock-price": HTMLFancyStockPriceElement;
@@ -53,6 +63,9 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface FancyLoading {
+        "isVisible"?: boolean;
+    }
     interface FancySideDrawer {
         "open"?: boolean;
         "title"?: string;
@@ -67,6 +80,7 @@ declare namespace LocalJSX {
         "text"?: string;
     }
     interface IntrinsicElements {
+        "fancy-loading": FancyLoading;
         "fancy-side-drawer": FancySideDrawer;
         "fancy-stock-finder": FancyStockFinder;
         "fancy-stock-price": FancyStockPrice;
@@ -77,6 +91,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "fancy-loading": LocalJSX.FancyLoading & JSXBase.HTMLAttributes<HTMLFancyLoadingElement>;
             "fancy-side-drawer": LocalJSX.FancySideDrawer & JSXBase.HTMLAttributes<HTMLFancySideDrawerElement>;
             "fancy-stock-finder": LocalJSX.FancyStockFinder & JSXBase.HTMLAttributes<HTMLFancyStockFinderElement>;
             "fancy-stock-price": LocalJSX.FancyStockPrice & JSXBase.HTMLAttributes<HTMLFancyStockPriceElement>;

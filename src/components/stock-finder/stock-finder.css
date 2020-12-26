@@ -11,6 +11,7 @@
 
 .stock-finder {
     display: flex;
+    margin-bottom: 1.6rem;
 }
 
 .stock-finder__input {
@@ -51,10 +52,6 @@
     background: var(--color-disabled, #525252);
     border-color: var(--color-disabled, #525252);
     cursor: not-allowed;
-}
-
-.stock-finder__results-list {
-    margin-top: 1.6rem;
 }
 
 .stock-finder__result-btn {

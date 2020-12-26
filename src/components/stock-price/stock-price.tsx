@@ -82,13 +82,7 @@ export class StockPrice {
         // at this point of time render function is already executed
         // mutating a stateful value in componentDidLoad is inefficient
         // as render function will have to run again
-        if (this.stockSymbol) {
-            // garbage for watching stockPrice prop changes
-            // this.initialStockSymbol = this.stockSymbol
-            this.userInput = this.stockSymbol
-            this.isInputValid = true
-            this.fetchStockPrice(this.stockSymbol)
-        }
+        console.log('componentDidLoad')
     }
 
     hostData () {
@@ -101,6 +95,13 @@ export class StockPrice {
         // at this point of time stencil is already able to read attributes
         // render function is about to be executed
         console.log('componentWillLoad', this.stockSymbol)
+        if (this.stockSymbol) {
+            // garbage for watching stockPrice prop changes
+            // this.initialStockSymbol = this.stockSymbol
+            this.userInput = this.stockSymbol
+            this.isInputValid = true
+            this.fetchStockPrice(this.stockSymbol)
+        }
     }
 
     componentWillUpdate () {
@@ -124,9 +125,8 @@ export class StockPrice {
 
     renderContent () {
         const price = this.error ? this.error : `Price: ${ this.price }`
-        const result = this.isLoading ? 'Loading...' : price
 
-        return <p>{ result }</p>
+        return <p>{ price }</p>
     }
 
     render () {
@@ -150,7 +150,8 @@ export class StockPrice {
                 </button>
             </form>,
             <section class="stock-price__data">
-                { this.renderContent() }
+                <fancy-loading isVisible={ this.isLoading }></fancy-loading>
+                { this.isLoading ? <div /> : this.renderContent() }
             </section>
         ]
     }
