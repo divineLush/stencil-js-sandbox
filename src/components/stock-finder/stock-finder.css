@@ -1,0 +1,55 @@
+:host {
+    display: block;
+    padding: 1rem;
+    width: 20rem;
+    max-width: 100%;
+    font-size: 1.6rem;
+}
+
+.stock-finder {
+    display: flex;
+}
+
+.stock-finder__input {
+    display: block;
+    font: inherit;
+    color: #c700c7;
+    padding: 0.1rem 0.5rem;
+    border: 3px solid #c700c7;
+}
+
+.stock-finder__input:focus {
+    background: #c700c7;
+    color: white;
+    outline: none;
+}
+
+.stock-finder__btn {
+    font: inherit;
+    padding: 0.25rem 0.5rem;
+    border: 2px solid #c700c7;
+    background: #c700c7;
+    color: white;
+    cursor: pointer;
+    margin-left: 1.2rem;
+    transition: all .5s ease-out;
+}
+
+.stock-finder__btn:hover,
+.stock-finder__btn:active,
+.stock-finder__btn:focus {
+    background: white;
+    color: #c700c7;
+    transform: scale(1.2);
+    outline: none;
+}
+
+.stock-finder__btn:disabled {
+    background: #8d8d8d;
+    border-color: #525252;
+    cursor: not-allowed;
+}
+
+.stock-finder__data > p {
+    margin-bottom: 0;
+}
