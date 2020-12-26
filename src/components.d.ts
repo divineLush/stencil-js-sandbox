@@ -11,6 +11,8 @@ export namespace Components {
         "openSideDrawer": () => Promise<void>;
         "title": string;
     }
+    interface FancyStockFinder {
+    }
     interface FancyStockPrice {
         "stockSymbol": string;
     }
@@ -24,6 +26,12 @@ declare global {
     var HTMLFancySideDrawerElement: {
         prototype: HTMLFancySideDrawerElement;
         new (): HTMLFancySideDrawerElement;
+    };
+    interface HTMLFancyStockFinderElement extends Components.FancyStockFinder, HTMLStencilElement {
+    }
+    var HTMLFancyStockFinderElement: {
+        prototype: HTMLFancyStockFinderElement;
+        new (): HTMLFancyStockFinderElement;
     };
     interface HTMLFancyStockPriceElement extends Components.FancyStockPrice, HTMLStencilElement {
     }
@@ -39,6 +47,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "fancy-side-drawer": HTMLFancySideDrawerElement;
+        "fancy-stock-finder": HTMLFancyStockFinderElement;
         "fancy-stock-price": HTMLFancyStockPriceElement;
         "fancy-tooltip": HTMLFancyTooltipElement;
     }
@@ -48,6 +57,8 @@ declare namespace LocalJSX {
         "open"?: boolean;
         "title"?: string;
     }
+    interface FancyStockFinder {
+    }
     interface FancyStockPrice {
         "stockSymbol"?: string;
     }
@@ -56,6 +67,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "fancy-side-drawer": FancySideDrawer;
+        "fancy-stock-finder": FancyStockFinder;
         "fancy-stock-price": FancyStockPrice;
         "fancy-tooltip": FancyTooltip;
     }
@@ -65,6 +77,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "fancy-side-drawer": LocalJSX.FancySideDrawer & JSXBase.HTMLAttributes<HTMLFancySideDrawerElement>;
+            "fancy-stock-finder": LocalJSX.FancyStockFinder & JSXBase.HTMLAttributes<HTMLFancyStockFinderElement>;
             "fancy-stock-price": LocalJSX.FancyStockPrice & JSXBase.HTMLAttributes<HTMLFancyStockPriceElement>;
             "fancy-tooltip": LocalJSX.FancyTooltip & JSXBase.HTMLAttributes<HTMLFancyTooltipElement>;
         }
