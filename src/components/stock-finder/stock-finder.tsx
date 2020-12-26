@@ -43,19 +43,21 @@ export class StockFinder {
     }
 
     resultItem (result) {
-        return <li
-            class="stock-finder__result"
+        const resultText = `${result.symbol}: ${result.name}`
+
+        return <button
+            class="stock-finder__result-btn"
             onClick={ this.onSelectSymbol.bind(this, result.symbol) }
         >
-            { result.name }
-        </li>
+            { resultText }
+        </button>
     }
 
     resultsList () {
         const results = this.searchResults
             .map(result => this.resultItem(result))
 
-        return <ul class="stock-finder__results-list">{ results }</ul>
+        return <article class="stock-finder__results-list">{ results }</article>
     }
 
     onSelectSymbol (symbol: string) {

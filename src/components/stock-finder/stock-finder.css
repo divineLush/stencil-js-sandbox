@@ -53,6 +53,22 @@
     cursor: not-allowed;
 }
 
-.stock-finder__data > p {
-    margin-bottom: 0;
+.stock-finder__results-list {
+    margin-top: 1.6rem;
+}
+
+.stock-finder__result-btn {
+    font: inherit;
+    background: var(--color-secondary, #ffffff);
+    border: none;
+    margin: 0.4rem 0;
+    text-align: initial;
+    cursor: pointer;
+    outline: none;
+}
+
+.stock-finder__result-btn:hover,
+.stock-finder__result-btn:active,
+.stock-finder__result-btn:focus {
+    color: var(--color-primary, #c700c7);
 }
