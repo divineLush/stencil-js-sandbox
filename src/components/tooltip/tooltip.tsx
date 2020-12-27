@@ -26,7 +26,7 @@ export class Tooltip {
                     class="fancy-tooltip__btn"
                     onClick={ this.toggleVisibility.bind(this) }
                 >
-                    :-*
+                    toggle tooltip
                 </button>
                 { this.tooltipContent() }
             </article>

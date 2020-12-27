@@ -3,16 +3,21 @@
 }
 
 .fancy-tooltip__btn {
-    background: #eadccc;
-    color: #419c73;
-    padding: 10px;
-    border: 2px solid transparent;
-    border-radius: 50%;
+    background: #ffffb0;
+    color: #458900;
+    padding: 1vw;
+    border: 2px solid #ff9327;
+    border-radius: 3.5vw;
     cursor: pointer;
+    transition: all .5s ease-out;
+    outline: none;
 }
 
-.fancy-tooltip__btn:hover {
-    border: 2px solid #80bdcb;
+.fancy-tooltip__btn:hover,
+.fancy-tooltip__btn:active,
+.fancy-tooltip__btn:focus {
+    border: 2px solid #9327ff;
+    color: #9327ff;
 }
 
 .fancy-tooltip__text {
